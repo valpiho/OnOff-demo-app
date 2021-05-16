@@ -1,5 +1,6 @@
 package com.piho.onoff.controllers;
 
+import com.piho.onoff.domain.DTO.EntryDTO;
 import com.piho.onoff.domain.Entry;
 import com.piho.onoff.domain.HttpResponse;
 import com.piho.onoff.exceptions.domain.NotFoundException;
@@ -14,6 +15,8 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 
+import static com.piho.onoff.constants.EntryConstants.ENTRY_DELETED;
+
 @RestController
 @Validated
 @RequestMapping("/api/entries")
@@ -24,7 +27,6 @@ public class EntryController {
     public EntryController(EntryService entryService) {
         this.entryService = entryService;
     }
-// "btc, iot, eth, neo, eos, got, trx, eut\"
     @PostMapping("/add")
     public ResponseEntity<?> createEntry(@RequestParam("name") @Pattern(
                                                 regexp="^[a-z]{3}$",
@@ -34,29 +36,25 @@ public class EntryController {
                                                  regexp="^[0-9]{10}$",
                                                  message = "WalletId must be 10 numbers long") String walletId)
             throws IOException, ServerIsUnderMaintenanceException, NotFoundException {
-        Entry entry = entryService.createEntry(cryptocurrencyName, amount, walletId);
-        return new ResponseEntity<>(entry, HttpStatus.OK);
+        return new ResponseEntity<>(entryService.createEntry(cryptocurrencyName, amount, walletId), HttpStatus.OK);
     }
 
     @GetMapping("/{entryId}")
-    public ResponseEntity<Entry> getEntry(@PathVariable("entryId") String entryId)
+    public ResponseEntity<EntryDTO> getEntry(@PathVariable("entryId") String entryId)
             throws ServerIsUnderMaintenanceException, IOException, NotFoundException {
-        Entry entry = entryService.getEntryByEntryId(entryId);
-        return new ResponseEntity<>(entry, HttpStatus.OK);
+        return new ResponseEntity<>(entryService.getEntryByEntryId(entryId), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Entry>> getEntriesList()
-            throws IOException, ServerIsUnderMaintenanceException {
-        List<Entry> entries = entryService.getEntriesList();
-        return new ResponseEntity<> (entries, HttpStatus.OK);
+    public ResponseEntity<List<EntryDTO>> getEntriesList() {
+        return new ResponseEntity<> (entryService.getEntriesList(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{entryId}")
     public ResponseEntity<HttpResponse> deleteEntry(@PathVariable("entryId") String entryId)
             throws NotFoundException {
         entryService.deleteEntryByEntryId(entryId);
-        return response(HttpStatus.OK, "Entry was deleted successfully");
+        return response(HttpStatus.OK, ENTRY_DELETED);
     }
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

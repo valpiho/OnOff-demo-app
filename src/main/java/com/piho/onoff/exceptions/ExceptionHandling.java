@@ -1,6 +1,7 @@
 package com.piho.onoff.exceptions;
 
 import com.piho.onoff.domain.HttpResponse;
+import com.piho.onoff.exceptions.domain.BadRequestException;
 import com.piho.onoff.exceptions.domain.ServerIsUnderMaintenanceException;
 import com.piho.onoff.exceptions.domain.UniqueFieldExistException;
 import com.piho.onoff.exceptions.domain.NotFoundException;
@@ -9,11 +10,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<HttpResponse> badRequestException(BadRequestException exception) {
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<HttpResponse> validationException(ConstraintViolationException exception) {

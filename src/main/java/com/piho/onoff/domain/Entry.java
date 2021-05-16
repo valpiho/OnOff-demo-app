@@ -7,19 +7,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
 public class Entry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
 
     @NotNull
@@ -31,8 +25,6 @@ public class Entry {
     private double purchasedValue;
     private double currentValue;
     private double currentProfit;
-
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date createdAt;
 
     @ManyToOne
