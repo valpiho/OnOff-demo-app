@@ -20,12 +20,12 @@ Create new wallet for transactions (title, email, fullName)
 Get wallet by walletId
 
 - **GET** http://localhost:8080/api/wallet/{walletId}/entries <br>
-Get all transactions for specific wallet
+Get all entries for specific wallet
 
 - **GET** http://localhost:8080/api/wallet/all <br>
 Get all wallets
 
-- **PUT** http://localhost:8080/api/wallet/{walletId} <br>
+- **PATCH** http://localhost:8080/api/wallet/{walletId} <br>
 Update wallet by walletId (title, email, fullName)
 
 - **DELETE** http://localhost:8080/api/wallet/{walletId} <br>
@@ -36,6 +36,9 @@ Delete wallet by walletId
 - **POST** http://localhost:8080/api/entries/add?name={cryptocurrencyName}&amount={amount}&walletId={walletId} <br>
 Create new entry (cryptocurrencyName, amount, walletId) <br>
 List of supported cryptocurrency names: **btc, iot, eth, neo, eos, got, trx, eut**
+
+- **GET** http://localhost:8080/api/entries <br>
+Get all entries
 
 - **GET** http://localhost:8080/api/entries/{entryId} <br>
 Get entry by entryId
