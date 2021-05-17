@@ -8,13 +8,11 @@ import com.piho.onoff.repositories.WalletRepository;
 import com.piho.onoff.repositories.EntryRepository;
 import com.piho.onoff.exceptions.domain.NotFoundException;
 import com.piho.onoff.exceptions.domain.ServerIsUnderMaintenanceException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;

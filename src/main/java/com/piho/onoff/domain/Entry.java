@@ -1,7 +1,6 @@
 package com.piho.onoff.domain;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,7 +30,5 @@ public class Entry {
     @JoinColumn(
             name = "wallet_id", referencedColumnName = "id",
             nullable = false, updatable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "walletId")
-    @JsonIdentityReference(alwaysAsId=true)
     private Wallet wallet;
 }

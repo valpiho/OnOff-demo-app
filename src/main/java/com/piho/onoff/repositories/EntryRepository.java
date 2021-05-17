@@ -12,9 +12,4 @@ public interface EntryRepository extends JpaRepository<Entry, Long> {
 
     Entry findEntryByEntryId(String entryId);
 
-    @Query("" +
-            "SELECT e " +
-            "FROM Entry AS e " +
-            "WHERE e.wallet.walletId = ?1")
-    List<Entry> findAllEntriesByWallet(String walletId);
 }

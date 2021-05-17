@@ -7,10 +7,9 @@ import com.piho.onoff.exceptions.domain.NotFoundException;
 import com.piho.onoff.repositories.WalletRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.modelmapper.spi.SourceGetter;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +36,7 @@ public class WalletService {
 
         Wallet wallet = modelMapper.map(walletDTO, Wallet.class);
         wallet.setWalletId(generateWalletId());
+        wallet.setEntries(new ArrayList<>());
         walletRepository.save(wallet);
 
         return modelMapper.map(wallet, WalletDTO.class);

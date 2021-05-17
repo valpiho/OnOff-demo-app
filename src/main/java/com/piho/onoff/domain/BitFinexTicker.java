@@ -2,7 +2,8 @@ package com.piho.onoff.domain;
 
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 public class BitFinexTicker {
 
     private double mid;
