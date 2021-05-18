@@ -2,8 +2,6 @@ package com.piho.onoff.controllers;
 
 import com.piho.onoff.domain.DTO.EntryDTO;
 import com.piho.onoff.domain.DTO.WalletDTO;
-import com.piho.onoff.domain.Wallet;
-import com.piho.onoff.domain.Entry;
 import com.piho.onoff.domain.HttpResponse;
 import com.piho.onoff.exceptions.domain.NotFoundException;
 import com.piho.onoff.services.EntryService;
@@ -37,6 +35,7 @@ public class WalletController {
     }
 
     @PostMapping("/create")
+    @ResponseBody
     public ResponseEntity<?> createWallet(@Valid @RequestBody WalletDTO walletDTO, BindingResult result) {
         ArrayList<String> errorList = validationErrorService.validationErrorService(result);
         if (errorList != null) {
@@ -58,7 +57,7 @@ public class WalletController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<WalletDTO>> getWalletsList() {
+    public ResponseEntity<List<WalletDTO>> getWalletsList() throws NotFoundException {
         return new ResponseEntity<> (walletService.getWalletsList(), HttpStatus.OK);
     }
 

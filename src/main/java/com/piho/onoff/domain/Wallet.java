@@ -27,4 +27,16 @@ public class Wallet {
 
     @OneToMany(mappedBy = "wallet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Entry> entries;
+
+    public Wallet() {
+    }
+
+    public Wallet(Long id, String walletId, String title, String fullName, String email, List<Entry> entries) {
+        this.id = id;
+        this.walletId = walletId;
+        this.title = title;
+        this.fullName = fullName;
+        this.email = email;
+        this.entries = entries;
+    }
 }

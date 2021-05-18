@@ -49,8 +49,11 @@ public class WalletService {
         return modelMapper.map(wallet, WalletDTO.class);
     }
 
-    public List<WalletDTO> getWalletsList() {
+    public List<WalletDTO> getWalletsList() throws NotFoundException {
         List<Wallet> wallets = walletRepository.findAll();
+        if (wallets.size() == 0) {
+            throw new NotFoundException("No wallets found");
+        }
         return wallets.stream()
                 .map(wallet -> modelMapper.map(wallet, WalletDTO.class))
                 .collect(Collectors.toList());

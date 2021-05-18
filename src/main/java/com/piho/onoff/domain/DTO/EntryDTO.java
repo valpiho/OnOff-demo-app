@@ -1,13 +1,11 @@
 package com.piho.onoff.domain.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 public class EntryDTO {
 
     private String entryId;
