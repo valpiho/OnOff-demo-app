@@ -19,7 +19,7 @@ import java.util.List;
 import static com.piho.onoff.constants.WalletConstants.WALLET_DELETED;
 
 @RestController
-@RequestMapping("/api/wallet")
+@RequestMapping("/api/v1/wallets")
 public class WalletController {
 
     private final WalletService walletService;
@@ -34,8 +34,7 @@ public class WalletController {
         this.validationErrorService = validationErrorService;
     }
 
-    @PostMapping("/create")
-    @ResponseBody
+    @PostMapping
     public ResponseEntity<?> createWallet(@Valid @RequestBody WalletDTO walletDTO, BindingResult result) {
         ArrayList<String> errorList = validationErrorService.validationErrorService(result);
         if (errorList != null) {
@@ -56,7 +55,7 @@ public class WalletController {
         return new ResponseEntity<>(entryService.getEntriesListByWalletId(walletId), HttpStatus.OK);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<WalletDTO>> getWalletsList() throws NotFoundException {
         return new ResponseEntity<> (walletService.getWalletsList(), HttpStatus.OK);
     }

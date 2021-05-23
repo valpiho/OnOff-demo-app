@@ -19,7 +19,7 @@ import static com.piho.onoff.constants.EntryConstants.ENTRY_DELETED;
 
 @RestController
 @Validated
-@RequestMapping("/api/entries")
+@RequestMapping("/api/v1/entries")
 public class EntryController {
 
     private final EntryService entryService;
@@ -27,7 +27,7 @@ public class EntryController {
     public EntryController(EntryService entryService) {
         this.entryService = entryService;
     }
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<?> createEntry(@RequestParam("name") @Pattern(
                                                 regexp="^[a-z]{3}$",
                                                 message = "Cryptocurrency name must be 3 characters long") String cryptocurrencyName,
